@@ -79,25 +79,26 @@ int main(int argc, char **argv) {
   }
 
   cmdQueueDesc.index = 0;
-  cmdQueueDesc.mode = ZE_COMMAND_QUEUE_MODE_ASYNCHRONOUS;
+  cmdQueueDesc.mode = ZE_COMMAND_QUEUE_MODE_DEFAULT;
   ZE_CHECK(zeCommandQueueCreate(context, device, &cmdQueueDesc, &cmdQueue));
 
   // Create a command list
+  ze_command_list_handle_t cmdListImm;
   ze_command_list_handle_t cmdList;
   ze_command_list_desc_t cmdListDesc = {};
   cmdListDesc.commandQueueGroupOrdinal = cmdQueueDesc.ordinal;
 #if IMMEDIATE
   ZE_CHECK(
-      zeCommandListCreateImmediate(context, device, &cmdQueueDesc, &cmdList));
+      zeCommandListCreateImmediate(context, device, &cmdQueueDesc, &cmdListImm));
+      ZE_CHECK(zeCommandListCreate(context, device, &cmdListDesc, &cmdList));
 #else
-  ZE_CHECK(zeCommandListCreate(context, device, &cmdListDesc, &cmdList));
 #endif
 
   // Create an event pool and a single event
   ze_event_handle_t Event;
   ze_event_pool_handle_t EventPool_;
   unsigned int PoolFlags =
-      ZE_EVENT_POOL_FLAG_HOST_VISIBLE | ZE_EVENT_POOL_FLAG_KERNEL_TIMESTAMP;
+      ZE_EVENT_POOL_FLAG_HOST_VISIBLE;
 
   ze_event_pool_desc_t EventPoolDesc = {
       ZE_STRUCTURE_TYPE_EVENT_POOL_DESC,  // stype
@@ -224,10 +225,19 @@ int main(int argc, char **argv) {
   dispatch.groupCountZ = 1;
 
   std::cout << "Enqueue barrier prior to kernel\n";
-  ZE_CHECK(zeCommandListAppendBarrier(cmdList, GpuReady, 0, nullptr));
+  // Reset the event
+  ZE_CHECK(zeEventHostSignal(Event));
+  ZE_CHECK(zeEventHostSignal(GpuReady));
+  ZE_CHECK(zeEventHostSignal(HostSignalEvent));
+  ZE_CHECK(zeEventHostReset(Event));
+  ZE_CHECK(zeEventHostReset(GpuReady));
+  ZE_CHECK(zeEventHostReset(HostSignalEvent));
+//   ZE_CHECK(zeCommandListAppendBarrier(cmdList, GpuReady, 0, nullptr));
   // Launch kernel on the GPU
   std::cout << "Launching kernel\n";
-  ZE_CHECK(zeCommandListAppendLaunchKernel(cmdList, kernel, &dispatch,
+  //enqueue HostSignalEvent signal
+//   ZE_CHECK(zeCommandListAppendSignalEvent(cmdList, HostSignalEvent));
+  ZE_CHECK(zeCommandListAppendLaunchKernel(cmdListImm, kernel, &dispatch,
                                                Event, 1, &HostSignalEvent));
   // query GpuReady Event
   std::cout << "Querying GpuReady Event\n";
@@ -238,12 +248,12 @@ int main(int argc, char **argv) {
 
   auto begin = std::chrono::steady_clock::now();
 
-#ifndef IMMEDIATE
+// #ifndef IMMEDIATE
   // Close list abd submit for execution
   ZE_CHECK(zeCommandListClose(cmdList));
   ZE_CHECK(
       zeCommandQueueExecuteCommandLists(cmdQueue, 1, &cmdList, nullptr));
-#endif
+// #endif
   ZE_CHECK(
       zeEventHostSynchronize(Event, std::numeric_limits<uint64_t>::max()));
   auto end = std::chrono::steady_clock::now();
