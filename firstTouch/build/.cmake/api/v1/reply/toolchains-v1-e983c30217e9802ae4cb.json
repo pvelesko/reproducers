@@ -1,0 +1,138 @@
+{
+	"kind" : "toolchains",
+	"toolchains" : 
+	[
+		{
+			"compiler" : 
+			{
+				"id" : "IntelLLVM",
+				"implicit" : 
+				{
+					"includeDirectories" : 
+					[
+						"/opt/intel/oneapi/tbb/2021.10.0/include",
+						"/opt/intel/oneapi/compiler/2023.1.0/linux/compiler/include",
+						"/opt/intel/oneapi/compiler/2023.1.0/linux/lib/clang/16/include",
+						"/usr/local/include",
+						"/usr/include/x86_64-linux-gnu",
+						"/usr/include"
+					],
+					"linkDirectories" : 
+					[
+						"/opt/intel/oneapi/compiler/2023.1.0/linux/compiler/lib/intel64_lin",
+						"/opt/intel/oneapi/compiler/2023.1.0/linux/lib",
+						"/usr/lib/gcc/x86_64-linux-gnu/12",
+						"/usr/lib64",
+						"/lib/x86_64-linux-gnu",
+						"/lib64",
+						"/usr/lib/x86_64-linux-gnu",
+						"/usr/lib",
+						"/lib",
+						"/opt/intel/oneapi/tbb/2021.10.0/lib/intel64/gcc4.8"
+					],
+					"linkFrameworkDirectories" : [],
+					"linkLibraries" : 
+					[
+						"svml",
+						"irng",
+						"imf",
+						"m",
+						"gcc",
+						"gcc_s",
+						"irc",
+						"dl",
+						"gcc",
+						"gcc_s",
+						"c",
+						"gcc",
+						"gcc_s",
+						"irc_s"
+					]
+				},
+				"path" : "/opt/intel/oneapi/compiler/2023.1.0/linux/bin/icx",
+				"version" : "2023.1.0"
+			},
+			"language" : "C",
+			"sourceFileExtensions" : 
+			[
+				"c",
+				"m"
+			]
+		},
+		{
+			"compiler" : 
+			{
+				"id" : "IntelLLVM",
+				"implicit" : 
+				{
+					"includeDirectories" : 
+					[
+						"/opt/intel/oneapi/tbb/2021.10.0/include",
+						"/opt/intel/oneapi/compiler/2023.1.0/linux/compiler/include",
+						"/usr/include/c++/10",
+						"/usr/include/x86_64-linux-gnu/c++/10",
+						"/usr/include/c++/10/backward",
+						"/opt/intel/oneapi/compiler/2023.1.0/linux/lib/clang/16/include",
+						"/usr/local/include",
+						"/usr/include/x86_64-linux-gnu",
+						"/usr/include"
+					],
+					"linkDirectories" : 
+					[
+						"/opt/intel/oneapi/compiler/2023.1.0/linux/compiler/lib/intel64_lin",
+						"/opt/intel/oneapi/compiler/2023.1.0/linux/lib",
+						"/usr/lib/gcc/x86_64-linux-gnu/10",
+						"/usr/lib64",
+						"/lib/x86_64-linux-gnu",
+						"/lib64",
+						"/usr/lib/x86_64-linux-gnu",
+						"/usr/lib",
+						"/lib",
+						"/opt/intel/oneapi/tbb/2021.10.0/lib/intel64/gcc4.8"
+					],
+					"linkFrameworkDirectories" : [],
+					"linkLibraries" : 
+					[
+						"svml",
+						"irng",
+						"stdc++",
+						"imf",
+						"m",
+						"gcc_s",
+						"gcc",
+						"irc",
+						"dl",
+						"gcc_s",
+						"gcc",
+						"c",
+						"gcc_s",
+						"gcc",
+						"irc_s"
+					]
+				},
+				"path" : "/opt/intel/oneapi/compiler/2023.1.0/linux/bin/icpx",
+				"version" : "2023.1.0"
+			},
+			"language" : "CXX",
+			"sourceFileExtensions" : 
+			[
+				"C",
+				"M",
+				"c++",
+				"cc",
+				"cpp",
+				"cxx",
+				"mm",
+				"mpp",
+				"CPP",
+				"ixx",
+				"cppm"
+			]
+		}
+	],
+	"version" : 
+	{
+		"major" : 1,
+		"minor" : 0
+	}
+}

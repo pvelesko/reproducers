@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/pvelesko/firstTouch/build",
-  "command": "/opt/install/llvm/16.0/bin/clang++   -g -o CMakeFiles/driver.dir/main.cpp.o -c /home/pvelesko/firstTouch/main.cpp",
-  "file": "/home/pvelesko/firstTouch/main.cpp"
-}
-]

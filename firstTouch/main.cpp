@@ -99,10 +99,10 @@ int main(int argc, char **argv) {
                                 device, &sharedA));
 
 //   Uncomment to PASS
-//   int firstTouch = 0;
-//   ZE_CHECK(zeCommandListAppendMemoryCopy(cmdList, sharedA, &firstTouch,
-//                                              sizeof(int), nullptr, 0, nullptr)); 
-//   ZE_CHECK(zeCommandListAppendBarrier(cmdList, nullptr, 0, nullptr));
+  int firstTouch = 0;
+  ZE_CHECK(zeCommandListAppendMemoryCopy(cmdList, sharedA, &firstTouch,
+                                             sizeof(int), nullptr, 0, nullptr)); 
+  ZE_CHECK(zeCommandListAppendBarrier(cmdList, nullptr, 0, nullptr));
 
   // Module Initialization
   ze_module_handle_t module = nullptr;
