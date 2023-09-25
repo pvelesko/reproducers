@@ -1,0 +1,1 @@
+/opt/install/llvm/16.0/bin/clang++ -g -rdynamic CMakeFiles/driver.dir/main.cpp.o -o driver  -Wl,-rpath,/usr/local/lib -lOpenCL /usr/local/lib/libze_loader.so 
